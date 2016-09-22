@@ -1,7 +1,7 @@
 <?php
 include_once __DIR__ . '/phpClickHouse/include.php';
 
-$config = include_once __DIR__ . '/../_clickhouse_config_product.php';
+$config = include_once __DIR__ . '/../_clickhouse_config_product_2.php';
 
 $cl = new ClickHouseDB\Cluster($config);
 
