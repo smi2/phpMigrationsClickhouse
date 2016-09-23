@@ -1,16 +1,44 @@
 <?php
 include_once __DIR__ . '/phpClickHouse/include.php';
+// ;
 
-$config = include_once __DIR__ . '/../_clickhouse_config_product_2.php';
-
-$cl = new ClickHouseDB\Cluster($config);
-
-$cl->setScanTimeOut(2.5); // 2500 ms
-if (!$cl->isReplicasIsOk())
+$config_list = include_once 'config.php';
+foreach ($config_list as $cluster_id=>$config)
 {
-    throw new Exception('Replica state is bad , error='.$cl->getError());
+    if (!isset($config['repository'])) die('xxx1');
+    if (!isset($config['clickhouse'])) die('xxx2');
+    if (!isset($config['split']['query'])) die('xxx2');
+
+
+
+    $cl = new ClickHouseDB\Cluster($config['clickhouse']);
+    $cl->setScanTimeOut(5);
+    if (!$cl->isReplicasIsOk())
+    {
+        throw new Exception('Replica state is bad , error='.$cl->getError());
+    }
+
+    // class repo , git pull
+    // open dir
+    // scan new file
+    // make run_hash_key
+    // lock coordinator
+    // exec migration
+    // unlock coordinator
+    // fun!
 }
-//
+
+exit;
+
+
+
+
+
+
+
+
+
+
 
 
 $migration=include 'example/001_add_some.php';
