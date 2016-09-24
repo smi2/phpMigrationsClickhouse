@@ -6,6 +6,8 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'PhpSchool\\PSX\\' => array($vendorDir . '/php-school/psx/src'),
     'PhpSchool\\CliMenu\\' => array($vendorDir . '/php-school/cli-menu/src'),
+    'PhpParser\\' => array($vendorDir . '/nikic/php-parser/lib/PhpParser'),
     '' => array($vendorDir . '/coyl/git/src'),
 );

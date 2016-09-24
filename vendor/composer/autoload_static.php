@@ -8,19 +8,30 @@ class ComposerStaticInitbf09b5fef2e4f4e8ea2e9a5c04640d55
 {
     public static $files = array (
         'a4ecaeafb8cfb009ad0e052c90355e98' => __DIR__ . '/..' . '/beberlei/assert/lib/Assert/functions.php',
+        'be01b9b16925dcb22165c40b46681ac6' => __DIR__ . '/..' . '/wp-cli/php-cli-tools/lib/cli/cli.php',
     );
 
     public static $prefixLengthsPsr4 = array (
         'P' => 
         array (
+            'PhpSchool\\PSX\\' => 14,
             'PhpSchool\\CliMenu\\' => 18,
+            'PhpParser\\' => 10,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'PhpSchool\\PSX\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-school/psx/src',
+        ),
         'PhpSchool\\CliMenu\\' => 
         array (
             0 => __DIR__ . '/..' . '/php-school/cli-menu/src',
+        ),
+        'PhpParser\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
         ),
     );
 
@@ -29,6 +40,20 @@ class ComposerStaticInitbf09b5fef2e4f4e8ea2e9a5c04640d55
     );
 
     public static $prefixesPsr0 = array (
+        'c' => 
+        array (
+            'cli' => 
+            array (
+                0 => __DIR__ . '/..' . '/wp-cli/php-cli-tools/lib',
+            ),
+        ),
+        'C' => 
+        array (
+            'Colors' => 
+            array (
+                0 => __DIR__ . '/..' . '/kevinlebrun/colors.php/src',
+            ),
+        ),
         'A' => 
         array (
             'Assert' => 

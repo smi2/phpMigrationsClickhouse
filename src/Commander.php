@@ -60,6 +60,18 @@ class Commander
     }
 
     /**
+     * @return CliMenuBuilder
+     */
+    public function makeMenu($Title)
+    {
+        $menu = (new CliMenuBuilder);
+        $menu->setTitle('Clickhouse Tools:'.$Title)->addLineBreak('-') ->setWidth(300);
+
+        $menu->addAsciiArt($this->getArt(),'left');
+        $menu->setUnselectedMarker(' ')->setSelectedMarker('✏')    ->setItemExtra('✔')->addStaticItem('AREA 51');
+        return $menu;
+    }
+    /**
      * @return \ClickHouseDB\Cluster
      * @throws Exception
      */
@@ -79,22 +91,13 @@ class Commander
     }
     private function getArt()
     {
-        return <<<ART
+        return Art::getArt();
 
- _____ _   _____         _
-|     | |_|_   _|___ ___| |___
-|   --|   | | | | . | . | |_ -|
-|_____|_|_| |_| |___|___|_|___|
-
-ART;
 
     }
     public function InitAction()
     {
-        $menu = (new CliMenuBuilder);
-        $menu->addAsciiArt($this->getArt());
-        $menu->setTitle('Clickhouse Tools, Select configuration')->addLineBreak('-');
-        $menu->setUnselectedMarker(' ')->setSelectedMarker('✏')    ->setItemExtra('✔');
+        $menu=$this->makeMenu('Select configuration');
         foreach ($this->configs_ch as $cluster_id=>$config) {
             $item_title=$cluster_id." : ".$config['clickhouse']['host'];
             $menu->addItem($item_title, function (CliMenu $menu) use ($cluster_id) {
