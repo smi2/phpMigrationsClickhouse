@@ -1,0 +1,155 @@
+[
+    {
+        "name": "beberlei/assert",
+        "version": "v2.6.3",
+        "version_normalized": "2.6.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/beberlei/assert.git",
+            "reference": "51e9d654481fc00c8a376641c390ec4e35d8c1fc"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/beberlei/assert/zipball/51e9d654481fc00c8a376641c390ec4e35d8c1fc",
+            "reference": "51e9d654481fc00c8a376641c390ec4e35d8c1fc",
+            "shasum": ""
+        },
+        "require": {
+            "ext-mbstring": "*",
+            "php": ">=5.3"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "@stable"
+        },
+        "time": "2016-07-28 19:35:30",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.5-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Assert": "lib/"
+            },
+            "files": [
+                "lib/Assert/functions.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-2-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Benjamin Eberlei",
+                "email": "kontakt@beberlei.de",
+                "role": "Lead Developer"
+            },
+            {
+                "name": "Richard Quadling",
+                "email": "rquadling@gmail.com",
+                "role": "Collaborator"
+            }
+        ],
+        "description": "Thin assertion library for input validation in business models.",
+        "keywords": [
+            "assert",
+            "assertion",
+            "validation"
+        ]
+    },
+    {
+        "name": "php-school/cli-menu",
+        "version": "1.0.3",
+        "version_normalized": "1.0.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/php-school/cli-menu.git",
+            "reference": "6efe9f6203ce311cc49c74d8f8ac281f0d8dbfae"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/php-school/cli-menu/zipball/6efe9f6203ce311cc49c74d8f8ac281f0d8dbfae",
+            "reference": "6efe9f6203ce311cc49c74d8f8ac281f0d8dbfae",
+            "shasum": ""
+        },
+        "require": {
+            "beberlei/assert": "^2.4",
+            "php": ">=5.6"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "~5.0",
+            "squizlabs/php_codesniffer": "~2.0"
+        },
+        "time": "2016-01-03 11:32:10",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "PhpSchool\\CliMenu\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Michael Woodward",
+                "email": "mikeymike.mw@gmail.com"
+            },
+            {
+                "name": "Aydin Hassan",
+                "email": "aydin@hotmail.com"
+            }
+        ],
+        "description": "A command line menu helper in PHP"
+    },
+    {
+        "name": "coyl/git",
+        "version": "0.1.6",
+        "version_normalized": "0.1.6.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/coyl/git.git",
+            "reference": "f1b579c9226a7761328b89e83212519b18d1759d"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/coyl/git/zipball/f1b579c9226a7761328b89e83212519b18d1759d",
+            "reference": "f1b579c9226a7761328b89e83212519b18d1759d",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "~3.7.0"
+        },
+        "time": "2016-06-08 12:24:48",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "authors": [
+            {
+                "name": "Vasil coylOne Kulakov",
+                "email": "iam@vasiliy.pro",
+                "homepage": "http://github.com/coyl"
+            }
+        ],
+        "description": "PHP library for manipulations on git repository. Based on kbjr/Git.php and it's forks",
+        "homepage": "https://github.com/coyl/Git.php",
+        "keywords": [
+            "git",
+            "git-client",
+            "php-git"
+        ]
+    }
+]
