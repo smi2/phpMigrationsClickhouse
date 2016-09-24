@@ -1,0 +1,6 @@
+{
+    "require": {
+        "php-school/cli-menu": "^1.0",
+        "coyl/git": "^0.1.6"
+    }
+}
