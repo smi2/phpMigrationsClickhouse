@@ -353,5 +353,43 @@
             }
         ],
         "description": "PHP CLI Syntax Highlighter"
+    },
+    {
+        "name": "vanilla/garden-cli",
+        "version": "v1.6.1",
+        "version_normalized": "1.6.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/vanilla/garden-cli.git",
+            "reference": "91d59980460c44d237cadd489b2a1a5755786a30"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/vanilla/garden-cli/zipball/91d59980460c44d237cadd489b2a1a5755786a30",
+            "reference": "91d59980460c44d237cadd489b2a1a5755786a30",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4.0"
+        },
+        "time": "2016-04-22 15:36:37",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Garden\\Cli\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Todd Burry",
+                "email": "todd@vanillaforums.com"
+            }
+        ],
+        "description": "A full-featured, yet ridiculously simple commandline parser for your next php cli script. Stop fighting with getopt()."
     }
 ]

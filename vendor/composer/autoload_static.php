@@ -18,6 +18,10 @@ class ComposerStaticInitbf09b5fef2e4f4e8ea2e9a5c04640d55
             'PhpSchool\\CliMenu\\' => 18,
             'PhpParser\\' => 10,
         ),
+        'G' => 
+        array (
+            'Garden\\Cli\\' => 11,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -32,6 +36,10 @@ class ComposerStaticInitbf09b5fef2e4f4e8ea2e9a5c04640d55
         'PhpParser\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
+        ),
+        'Garden\\Cli\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/vanilla/garden-cli/src',
         ),
     );
 

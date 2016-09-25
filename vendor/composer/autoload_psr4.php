@@ -9,5 +9,6 @@ return array(
     'PhpSchool\\PSX\\' => array($vendorDir . '/php-school/psx/src'),
     'PhpSchool\\CliMenu\\' => array($vendorDir . '/php-school/cli-menu/src'),
     'PhpParser\\' => array($vendorDir . '/nikic/php-parser/lib/PhpParser'),
+    'Garden\\Cli\\' => array($vendorDir . '/vanilla/garden-cli/src'),
     '' => array($vendorDir . '/coyl/git/src'),
 );

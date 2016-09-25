@@ -3,6 +3,7 @@
         "php-school/cli-menu": "^1.0",
         "coyl/git": "^0.1.6",
         "wp-cli/php-cli-tools": "^0.11.1",
-        "php-school/psx": "^1.1"
+        "php-school/psx": "^1.1",
+        "vanilla/garden-cli": "^1.6"
     }
 }

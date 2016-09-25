@@ -1,0 +1,24 @@
+{
+	"name": "vanilla/garden-cli",
+	"description": "A full-featured, yet ridiculously simple commandline parser for your next php cli script. Stop fighting with getopt().",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Todd Burry",
+			"email": "todd@vanillaforums.com"
+		}
+	],
+	"require": {
+		"php": ">=5.4.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"Garden\\Cli\\": "src"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Garden\\Cli\\Tests\\": "tests"
+		}
+	}
+}
