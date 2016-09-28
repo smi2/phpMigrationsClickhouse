@@ -97,6 +97,7 @@ class Commander
     }
     public function InitAction()
     {
+        if ($this->isSelectConfiguration()) return false;
         $menu=$this->makeMenu('Select configuration');
         foreach ($this->configs_ch as $cluster_id=>$config) {
             $item_title=$cluster_id." : ".$config['clickhouse']['host'];
@@ -107,12 +108,58 @@ class Commander
         }
         $menu->build()->open();
     }
+    public function ExecMigrationAction(\SplFileInfo $file)
+    {
+        echo $file->getFilename().' : '.date('Y-m-d H:i:s',$file->getMTime()).' : '.$file->getSize()."\n";
+        echo $file->getPathname()."\n";
+
+        $migration=include_once $file->getPathname();
+
+        echo json_encode($migration);
+
+        echo "\n\nsendMigration....\n";
+        $this->getChCluster()->sendMigration($migration,true);
+
+        echo "!END!\nPress down/up for exit;\n";
+
+    }
     public function BaseAction()
     {
-        echo "Open repo!\n";
-        $this->getRepo()->getList();
-        echo "Open connect to CH\n";
+        echo "Open & pull git repo....\n";
+        $list_files=$this->getRepo()->getList();
+
+
+        echo "Connect to CH cluster....\n";
         $this->getChCluster()->getClusterList();
+
+
+        ini_set('date.timezone','Europe/Moscow');
+
+
+        $menu=$this->makeMenu('Select migration');
+
+        foreach ($list_files as $file)
+        {
+//            $file->pathName , $file->fileName
+              $menu->addItem($file->getFilename().' : '.date('Y-m-d H:i:s',$file->getMTime()).' : '.$file->getSize(), function (CliMenu $menu) use ($file) {
+                self::ExecMigrationAction($file);
+              });
+        }
+
+        $menu->build()->open();
+
+        // class repo , git pull
+        // open dir
+        // scan new file
+        // make run_hash_key
+        // lock coordinator
+        // exec migration
+        // unlock coordinator
+        // fun!
+
+
+
+
 
     }
     public function ExitAction()

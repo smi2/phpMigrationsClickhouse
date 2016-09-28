@@ -17,6 +17,9 @@ $config_ch_list = include_once 'config.php';
 
 
 $Commander=new MigrationsClickhouse\Commander($config_ch_list);
+
+//$Commander->SelectConfiguration('clickhouse.server.1.migrations');
+
 $Commander->InitAction();
 if (!$Commander->isSelectConfiguration()) {
     $Commander->ExitAction();
@@ -25,14 +28,6 @@ else {
     $Commander->BaseAction();
 }
 
-    // class repo , git pull
-    // open dir
-    // scan new file
-    // make run_hash_key
-    // lock coordinator
-    // exec migration
-    // unlock coordinator
-    // fun!
 
 exit;
 

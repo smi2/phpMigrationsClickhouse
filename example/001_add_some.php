@@ -2,7 +2,6 @@
 $cluster_name='sharovara';
 
 $mclq=new ClickHouseDB\Cluster\Migration($cluster_name);
-
 $mclq->addSqlUpdate('DROP DATABASE IF EXISTS shara');
 $mclq->addSqlUpdate('CREATE DATABASE IF NOT EXISTS shara');
 $mclq->addSqlUpdate('DROP TABLE IF EXISTS shara.adpreview_body_views_sharded');

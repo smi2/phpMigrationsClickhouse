@@ -3,6 +3,7 @@ namespace MigrationsClickhouse;
 
 class GitRepo
 {
+    private $files=[];
     private $path;
     public function __construct($repo,$path)
     {
@@ -12,6 +13,7 @@ class GitRepo
         // https://github.com/teqneers/PHP-Stream-Wrapper-for-Git
         // http://gitonomy.com/doc/gitlib/master/api/commit/
         $this->openRepo();
+        $this->scanDir();
     }
     private function dirMigrations()
     {
@@ -29,8 +31,28 @@ class GitRepo
             $this->git->push('origin', 'master');
         }
     }
+    public function getDir()
+    {
+        $dir=rtrim($this->git->getRepoPath(),'/').'/'.$this->path;
+        return $dir;
+    }
     public function getList()
     {
+        return $this->files;
+    }
+    public function scanDir()
+    {
+        $this->files=[];
+        $dir=$this->getDir();
+        $directory = new \RecursiveDirectoryIterator($dir);
+        $flattened = new \RecursiveIteratorIterator($directory);
+
+        // @todo : normal rexexp
+        $files = new \RegexIterator($flattened, '#^(?:[A-Z]:)?(?:/(?!\.Trash)[^/]+)+/[^/]+\.(?:php)$#Di');
+
+        foreach($files as $file) {
+            $this->files[]=$file;
+        }
 
     }
     public function getNext()
