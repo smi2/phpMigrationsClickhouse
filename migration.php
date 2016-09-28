@@ -7,31 +7,7 @@ include_once __DIR__ . '/src/include.php';
 
 
 
-//https://github.com/vanilla/garden-cli
-
-use Garden\Cli\Cli;
-
-// Define the cli options.
-$cli = new Cli();
-
-$cli->description('Dump some information from your database.')
-    ->opt('config:c', 'Connect to host.', false,'string')
-    ->opt('force:f', 'Force an overwrite.', false, 'boolean', 'f')
-    ->opt('select:s', 'Select Id.', false,'string')
-;
-//    ->opt('port:P', 'Port number to use.', false, 'integer')
-//    ->opt('user:u', 'User for login if not current user.', true)
-//    ->opt('password:p', 'Password to use when connecting to server.')
-//    ->opt('database:d', 'The name of the database to dump.', true);
-
-// Parse and return cli args.
-$args = $cli->parse();
-
-
-print_r($args->getArgs());
-print_r($args);
-exit();
-
+$config='config.php';
 if (!is_file($config))
 {
     echo "no file:`config.php`";
