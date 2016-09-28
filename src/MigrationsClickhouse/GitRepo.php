@@ -12,6 +12,10 @@ class GitRepo
         // https://github.com/cpliakas/git-wrapper
         // https://github.com/teqneers/PHP-Stream-Wrapper-for-Git
         // http://gitonomy.com/doc/gitlib/master/api/commit/
+        $this->reopen();
+    }
+    public function reopen()
+    {
         $this->openRepo();
         $this->scanDir();
     }

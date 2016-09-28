@@ -10,6 +10,8 @@ class Commander
     private $repo=[];
     private $configs_ch=[];
     private $select_id=false;
+    private $migrations=[];
+
     public function __construct($config_ch_list)
     {
         foreach ($config_ch_list as $cluster_id=>$config) {
@@ -108,17 +110,33 @@ class Commander
         }
         $menu->build()->open();
     }
-    public function ExecMigrationAction(\SplFileInfo $file)
+
+    private function getMigration($pathname)
+    {
+
+        if (!isset($this->migrations[$pathname]))
+        {
+            $this->migrations[$pathname]=include $pathname;
+        }
+        return $this->migrations[$pathname];
+    }
+
+    public function event_UpdateRepo()
+    {
+        echo "Update repo\n";
+        $this->migrations=[];
+        $this->getRepo()->reopen();
+        echo "Done\n";
+    }
+    public function event_ExecMigration(\SplFileInfo $file)
     {
         echo $file->getFilename().' : '.date('Y-m-d H:i:s',$file->getMTime()).' : '.$file->getSize()."\n";
         echo $file->getPathname()."\n";
 
-        $migration=include_once $file->getPathname();
 
-        echo json_encode($migration);
 
         echo "\n\nsendMigration....\n";
-        $this->getChCluster()->sendMigration($migration,true);
+        $this->getChCluster()->sendMigration($this->getMigration($file->getPathname()),true);
 
         echo "!END!\nPress down/up for exit;\n";
 
@@ -138,11 +156,14 @@ class Commander
 
         $menu=$this->makeMenu('Select migration');
 
+        $menu->addItem("Update repository", function (CliMenu $menu) {
+            self::event_UpdateRepo();
+        });
         foreach ($list_files as $file)
         {
 //            $file->pathName , $file->fileName
               $menu->addItem($file->getFilename().' : '.date('Y-m-d H:i:s',$file->getMTime()).' : '.$file->getSize(), function (CliMenu $menu) use ($file) {
-                self::ExecMigrationAction($file);
+                self::event_ExecMigration($file);
               });
         }
 
