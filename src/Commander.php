@@ -83,7 +83,7 @@ class Commander
         $id=$this->getSelectConfigurationId();
         if (empty($this->chcluster[$id]))
         {
-            $this->chcluster[$id]=new \ClickHouseDB\Cluster($config['clickhouse']);
+            $this->chcluster[$id]=new \ClickHouseDB\SendMigrationCluster($config['clickhouse']);
             $this->chcluster[$id]->setScanTimeOut(15);
             if (!$this->chcluster[$id]->isReplicasIsOk()) {
                 throw new Exception('Replica state is bad , error=' . $this->chcluster[$id]->getError());
@@ -128,7 +128,7 @@ class Commander
         $this->getRepo()->reopen();
         echo "Done\n";
     }
-    public function event_ExecMigration(\SplFileInfo $file)
+    public function event_ExecMigration(\SplFileInfo $file,CliMenu $menu)
     {
         echo $file->getFilename().' : '.date('Y-m-d H:i:s',$file->getMTime()).' : '.$file->getSize()."\n";
         echo $file->getPathname()."\n";
@@ -137,8 +137,9 @@ class Commander
 
         echo "\n\nsendMigration....\n";
         $this->getChCluster()->sendMigration($this->getMigration($file->getPathname()),true);
+        echo "\nPress Up/Down!\n";
 
-        echo "!END!\nPress down/up for exit;\n";
+
 
     }
     public function BaseAction()
@@ -151,7 +152,7 @@ class Commander
         $this->getChCluster()->getClusterList();
 
 
-        ini_set('date.timezone','Europe/Moscow');
+
 
 
         $menu=$this->makeMenu('Select migration');
@@ -161,9 +162,8 @@ class Commander
         });
         foreach ($list_files as $file)
         {
-//            $file->pathName , $file->fileName
               $menu->addItem($file->getFilename().' : '.date('Y-m-d H:i:s',$file->getMTime()).' : '.$file->getSize(), function (CliMenu $menu) use ($file) {
-                self::event_ExecMigration($file);
+                    self::event_ExecMigration($file,$menu);
               });
         }
 

@@ -1,6 +1,6 @@
 <?php
 namespace ClickHouseDB;
-class SendMigration
+class SendMigrationCluster extends Cluster
 {
     public function showDebug($message,$print=false)
     {
@@ -13,7 +13,7 @@ class SendMigration
 
         $sql_down=$migration->getSqlDowngrade();
         $sql_up=$migration->getSqlUpdate();
-
+        $error=[];
         // Пропингуем все хосты
         foreach ($node_hosts as $node) {
             try {
@@ -28,7 +28,7 @@ class SendMigration
             } catch (QueryException $E) {
 
                 $this->showDebug("Can`t connect or ping ip/node : " . $node,$showDebug);
-                $this->error = "Can`t connect or ping ip/node : " . $node;
+                $error[] = "Can`t connect or ping ip/node : " . $node;
                 return false;
             }
         }
@@ -45,7 +45,7 @@ class SendMigration
 
                     if ($this->client($node)->write($s_u)->isError()) {
                         $need_undo = true;
-                        $this->error = "Host $node result error";
+                        $error[] = "Host $node result error";
                         $this->showDebug("client($node)->Host $node result error",$showDebug);
                     }
                     else
@@ -55,7 +55,7 @@ class SendMigration
                 } catch (QueryException $E) {
                     $need_undo = true;
                     $this->showDebug("client($node)->Host $node result error:".$E->getMessage(),$showDebug);
-                    $this->error = "Host $node result error : " . $E->getMessage();
+                    $error[] = "Host $node result error : " . $E->getMessage();
                 }
                 if ($need_undo)
                 {

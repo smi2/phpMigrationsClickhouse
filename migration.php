@@ -5,8 +5,6 @@ include_once __DIR__ . '/phpClickHouse/include.php';
 include_once __DIR__ . '/src/include.php';
 
 
-
-
 $config='config.php';
 if (!is_file($config))
 {
@@ -27,36 +25,3 @@ if (!$Commander->isSelectConfiguration()) {
 else {
     $Commander->BaseAction();
 }
-
-
-exit;
-
-
-
-
-
-
-
-
-
-
-
-//
-//if ($migration instanceof ClickHouseDB\Cluster\Migration)
-//{
-//
-//    $cluster_name=$migration->getClusterName();
-//
-//    echo "> $cluster_name , count shard   = ".$cl->getClusterCountShard($cluster_name)." ; count replica = ".$cl->getClusterCountReplica($cluster_name)."\n";
-//
-//    if (!$cl->sendMigration($mclq,true))
-//    {
-//        throw new Exception('sendMigration is bad , error='.$cl->getError());
-//    }
-//    echo "All ok!\nExit;)\n";
-//    exit(0);
-//}
-//else
-//{
-//    throw new Exception("migration not load");
-//}
