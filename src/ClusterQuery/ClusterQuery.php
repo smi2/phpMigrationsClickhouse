@@ -124,7 +124,12 @@ class Migration extends Query
         $sql=$this->autoSplit($sql);
         if (is_array($sql))
         {
-            foreach ($sql as $q) $this->_sql_down[]=trim($q);
+            foreach ($sql as $q)
+            {
+                $q=trim($q);
+                if ($q)
+                $this->_sql_down[]=$q;
+            }
         }
         else
         {
