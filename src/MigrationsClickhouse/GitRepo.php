@@ -54,9 +54,12 @@ class GitRepo
         // @todo : normal rexexp
         $files = new \RegexIterator($flattened, '#^(?:[A-Z]:)?(?:/(?!\.Trash)[^/]+)+/[^/]+\.(?:php)$#Di');
 
+        $f=[];
         foreach($files as $file) {
-            $this->files[]=$file;
+            $f[$file->getFilename()]=$file;
         }
+        krsort($f);
+        $this->files=array_values($f);
 
     }
     public function getNext()

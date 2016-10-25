@@ -162,7 +162,7 @@ class Commander
         });
         foreach ($list_files as $file)
         {
-              $menu->addItem($file->getFilename().' : '.date('Y-m-d H:i:s',$file->getMTime()).' : '.$file->getSize(), function (CliMenu $menu) use ($file) {
+              $menu->addItem($file->getFilename()."       ".date('Y-m-d H:i:s',$file->getMTime()).' ', function (CliMenu $menu) use ($file) {
                     self::event_ExecMigration($file,$menu);
               });
         }
