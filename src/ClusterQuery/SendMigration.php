@@ -37,9 +37,9 @@ class SendMigrationCluster extends Cluster
         // Выполняем запрос на каждый client(IP) , если хоть одни не отработал то делаем на каждый Down
         $need_undo=false;
         $undo_ip=[];
-        foreach ($node_hosts as $node)
+        foreach ($sql_up as $s_u)
         {
-            foreach ($sql_up as $s_u) {
+            foreach ($node_hosts as $node) {
                 try {
                     $this->showDebug("client($node)->write(".substr($s_u,0,45).")....",$showDebug);
 
