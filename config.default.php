@@ -1,6 +1,4 @@
 <?php
-ini_set('date.timezone','Europe/Moscow');
-
 return
 [
     'clickhouse.server.1.migrations'=>

@@ -1,6 +1,7 @@
 <?php
 
 namespace ClickHouseDB\Cluster;
+use ClickHouseDB\Exception;
 
 /**
  * Class Query
@@ -71,6 +72,7 @@ class Migration extends Query
     private $_sql_up=[];
     private $_sql_down=[];
     private $_split_chars=';;';
+    private $_actionOnError='undo';
 
     private function autoSplit($sql)
     {
@@ -152,6 +154,28 @@ class Migration extends Query
     public function getSqlUpdate()
     {
         return $this->_sql_up;
+    }
+
+    /**
+     * `undo` or `continue` or `break`
+     *
+     * @param string $action
+     * @return $this
+     */
+    public function setErrorAction($action='undo')
+    {
+        $action=strtolower($action);
+        if (in_array($action,['undo','break','continue']))
+        {
+            throw new Exception('Bad set action');
+        }
+        $this->_actionOnError=$action;
+        return $this;
+    }
+
+    public function getErrorAction()
+    {
+        return $this->_actionOnError;
     }
 
 }

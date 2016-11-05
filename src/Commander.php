@@ -70,7 +70,7 @@ class Commander
         $menu->setTitle('Clickhouse Tools:'.$Title)->addLineBreak('-') ->setWidth(300);
 
         $menu->addAsciiArt($this->getArt(),'left');
-        $menu->setUnselectedMarker(' ')->setSelectedMarker('✏')    ->setItemExtra('✔')->addStaticItem('AREA 51');
+        $menu->setUnselectedMarker(' ')->setSelectedMarker('✏')    ->setItemExtra('✔')->addStaticItem('ClickHouse Migrations');
         return $menu;
     }
     /**
