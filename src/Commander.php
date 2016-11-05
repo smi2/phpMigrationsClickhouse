@@ -123,37 +123,35 @@ class Commander
 
     public function event_UpdateRepo()
     {
-        echo "Update repo\n";
+        \Shell::msg("Update repo....");
+        \Shell::info("Update repo....");
         $this->migrations=[];
         $this->getRepo()->reopen();
-        echo "Done\n";
+        \Shell::msg("Done");
     }
     public function event_ExecMigration(\SplFileInfo $file,CliMenu $menu)
     {
-        echo $file->getFilename().' : '.date('Y-m-d H:i:s',$file->getMTime()).' : '.$file->getSize()."\n";
-        echo $file->getPathname()."\n";
-
-
-
-        echo "\n\nsendMigration....\n";
+        \Shell::msg("ExecMigration");
+        \Shell::msg($file->getFilename().' : '.date('Y-m-d H:i:s',$file->getMTime()).' : '.$file->getSize());
+        \Shell::msg("File:",$file->getPathname());
+        \Shell::msg("sendMigration...",[\Shell::bold,\Shell::info]);
         $this->getChCluster()->sendMigration($this->getMigration($file->getPathname()),true);
-        echo "\nPress Up/Down!\n";
 
+        if (\Shell::message()->confirm("Exit?"))
+        {
+            $menu->closeThis();
+        }
+        \Shell::msg("Press Up or Down");
 
 
     }
     public function BaseAction()
     {
-        echo "Open & pull git repo....\n";
-        $list_files=$this->getRepo()->getList();
-
-
-        echo "Connect to CH cluster....\n";
+        \Shell::msg("Connect to CH cluster....",[\Shell::bold,\Shell::info]);
         $this->getChCluster()->getClusterList();
 
-
-
-
+        \Shell::msg("Open & pull git repo....",[\Shell::bold,\Shell::info]);
+        $list_files=$this->getRepo()->getList();
 
         $menu=$this->makeMenu('Select migration');
 
@@ -163,28 +161,22 @@ class Commander
         foreach ($list_files as $file)
         {
               $menu->addItem($file->getFilename()."       ".date('Y-m-d H:i:s',$file->getMTime()).' ', function (CliMenu $menu) use ($file) {
-                    self::event_ExecMigration($file,$menu);
+                  self::event_ExecMigration($file,$menu);
+
               });
         }
 
         $menu->build()->open();
 
-        // class repo , git pull
-        // open dir
-        // scan new file
         // make run_hash_key
         // lock coordinator
         // exec migration
         // unlock coordinator
         // fun!
 
-
-
-
-
     }
     public function ExitAction()
     {
-        echo "$> bye ByE;)\n";
+        \Shell::message()->message("<yellow>$> bye ByE;)</yellow>",[\Shell::bold]);
     }
 }

@@ -19,10 +19,11 @@ class MigrationsConsole
     /**
      * Запустить выбор миграции
      *
-     * @param string $select SelectConfiguration
+     * @param string $select Select Configuration Id
+     * @param string $nopull No git pull
      * @return string
      */
-    public function runCommand($select='')
+    public function runCommand($select='',$nopull=false)
     {
 
 

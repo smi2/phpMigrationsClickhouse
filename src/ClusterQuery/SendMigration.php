@@ -5,7 +5,10 @@ class SendMigrationCluster extends Cluster
     public function showDebug($message,$print=false)
     {
         $message=str_ireplace(["\n","\r","\t"],'',$message);
-        if ($print) echo date('H:i:s')." ".$message."\n";
+        if ($print)
+        {
+            \Shell::msg($message);
+        }
     }
     public function sendMigration(Cluster\Migration $migration,$showDebug=false)
     {
