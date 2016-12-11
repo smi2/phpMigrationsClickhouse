@@ -52,7 +52,7 @@ class GitRepo
         $flattened = new \RecursiveIteratorIterator($directory);
 
         // @todo : normal rexexp
-        $files = new \RegexIterator($flattened, '#^(?:[A-Z]:)?(?:/(?!\.Trash)[^/]+)+/[^/]+\.(?:php)$#Di');
+        $files = new \RegexIterator($flattened, '#^(?:[A-Z]:)?(?:/(?!\.Trash)[^/]+)+/[^/]+\.(?:php|sql)$#Di');
 
         $f=[];
         foreach($files as $file) {

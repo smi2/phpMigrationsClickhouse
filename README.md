@@ -77,7 +77,7 @@ return
 
 
 ```php
-       'repository'=>__DIR__ . '/var/ClickhouseMigrations/',
+       'repository'=>'/var/ClickhouseMigrations/',
        'path'=>'ch.develop',
 ```
 
@@ -87,31 +87,29 @@ return
 
 
 
-
-
-
 ## Формат шаблонов PHP
 
 
 setAutoSplitQuery - разделитель запросов
+
 setTimeout - время выполнение каждого запроса 
+
 addSqlUpdate - что накатываем 
+
 addSqlDowngrade - что откатываем 
 
 
 ```php
-
-
 <?php
 $cluster_name='sharovara'; // задаем имя кластера 
-
 $mclq=new ClickHouseDB\Cluster\Migration($cluster_name); // класс миграции 
-
 $mclq->setTimeout(100.1)->setAutoSplitQuery(';;')->setErrorAction('undo');
 $mclq->addSqlUpdate('
+
 DROP DATABASE IF EXISTS shara
 ;;
 CREATE DATABASE IF NOT EXISTS shara
+
 ');
 $mclq->addSqlDowngrade('DROP DATABASE IF EXISTS shara');
 
@@ -131,6 +129,5 @@ CREATE DATABASE IF NOT EXISTS shara
 
 /* DOWN */
 DROP DATABASE IF EXISTS shara
-
 
 ```
