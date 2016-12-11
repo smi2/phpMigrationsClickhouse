@@ -20,6 +20,11 @@ cp config.default.php config.php
 
 mcedit config.php
 
+```
+
+### Запуск
+
+```shell 
 
 ./migration.sh help
 # php _migration.php help
@@ -28,6 +33,17 @@ mcedit config.php
 
 ```
 
+Откроет выбор сервера/конфигурации и далее выбор миграции. 
+
+
+Если вызвать `execone` производит миграцию одного указанного файла
+
+```shell 
+
+./migration.sh execone --file=020_test_db.sql 
+
+```
+ 
 
 
 

@@ -17,6 +17,18 @@ class MigrationsConsole
         }
         $this->config_ch_list = include_once $this->config;
     }
+
+    /**
+     * Запустить миграцию указанную в file
+     *
+     * @param $file string имя файла
+     * @return bool
+     */
+    public function execoneCommand($file)
+    {
+        return true;
+    }
+
     /**
      * Запустить выбор миграции
      *
