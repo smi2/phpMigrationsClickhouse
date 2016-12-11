@@ -29,7 +29,9 @@ mcedit config.php
 ./migration.sh help
 # php _migration.php help
 
-./migration.sh run
+./migration.sh run 
+
+./migration.sh run [--config=/path/cnf.php --server=config_id]
 
 ```
 
@@ -40,7 +42,7 @@ mcedit config.php
 
 ```shell 
 
-./migration.sh execone --file=020_test_db.sql 
+./migration.sh execone --file=020_test_db.sql [--config=/path/cnf.php --server=config_id]
 
 ```
  
