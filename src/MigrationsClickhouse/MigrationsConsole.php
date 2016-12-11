@@ -2,19 +2,20 @@
 class MigrationsConsole
 {
     private $config_ch_list=[];
-    public function setConfig()
+    private $config='config.php';
+    public function setConfig($file)
     {
-        //
+        $this->config=$file;
     }
     private function initConfigCH()
     {
-        $config='config.php';
-        if (!is_file($config))
+
+        if (!is_file($this->config))
         {
-            echo "no file:`config.php`";
+            echo "no file:`".$this->config."`";
             exit(9);
         }
-        $this->config_ch_list = include_once 'config.php';
+        $this->config_ch_list = include_once $this->config;
     }
     /**
      * Запустить выбор миграции
@@ -23,10 +24,8 @@ class MigrationsConsole
      * @param string $nopull No git pull
      * @return string
      */
-    public function runCommand($select='',$nopull=false)
+    public function runCommand($select='')
     {
-
-
         $this->initConfigCH();
         $Commander=new MigrationsClickhouse\Commander($this->config_ch_list);
         if ($select)
