@@ -134,18 +134,3 @@ $mclq->addSqlDowngrade('DROP DATABASE IF EXISTS shara');
 return $mclq;
 ```
 
-
-
-## Формат шаблонов SQL 
-
-```SQL
-/* JSON:{"ClusterName":"sharovara","setTimeout":100,"setAutoSplitQuery":";;","setErrorAction":"undo"} */
-
-DROP DATABASE IF EXISTS shara
-;;
-CREATE DATABASE IF NOT EXISTS shara
-
-/* DOWN */
-DROP DATABASE IF EXISTS shara
-
-```
