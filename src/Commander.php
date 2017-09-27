@@ -85,8 +85,9 @@ class Commander
         {
             $this->chcluster[$id]=new \ClickHouseDB\SendMigrationCluster($config['clickhouse']);
             $this->chcluster[$id]->setScanTimeOut(15);
+            $this->chcluster[$id]->rescan();
             if (!$this->chcluster[$id]->isReplicasIsOk()) {
-                throw new Exception('Replica state is bad , error=' . $this->chcluster[$id]->getError());
+                throw new Exception('Replica state is bad , error= ' . json_encode($this->chcluster[$id]->getError()));
              }
         }
         return $this->chcluster[$id];
