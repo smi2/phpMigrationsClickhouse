@@ -98,6 +98,18 @@ class Commander
 
 
     }
+    public function DropAction($cluster,$database,$table)
+    {
+        $this->SelectConfiguration($cluster);
+        \Shell::msg("$database,$table");
+        $this->getChCluster()->dropOld($this->getChCluster(),$database,$table);
+    }
+    public function queryAction($sql,$cluster)
+    {
+        $this->SelectConfiguration($cluster);
+        \Shell::msg("$sql");
+        $this->getChCluster()->sendQuery($this->getChCluster(),$sql);
+    }
     public function InitAction()
     {
         if ($this->isSelectConfiguration()) return false;

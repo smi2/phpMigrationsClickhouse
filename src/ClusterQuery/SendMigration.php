@@ -10,6 +10,80 @@ class SendMigrationCluster extends Cluster
             \Shell::msg($message);
         }
     }
+    public function dropOld(\ClickHouseDB\Cluster $cluster,$database,$table,$days=160)
+    {
+        $node_hosts=$cluster->getClusterNodes('ads');
+        foreach ($node_hosts as $node) {
+            $this->client($node)->ping();
+            $this->showDebug("client($node)->ping() OK!",true);
+        }
+        $nodes=$cluster->getMasterNodeForTable($database.'.'.$table);
+        // scan need node`s
+        shuffle($nodes);
+        foreach ($nodes as $node)
+        {
+            $this->client($node)->database($database)->setTimeout(2000);
+            $this->showDebug("client($node)->start",true);
+            $ret=$this->dropOldPartitions($node,$table,$days,215);
+        }
+    }
+
+
+    public function dropOldPartitions($node, $table_name, $days_ago, $count_partitons_per_one = 100)
+    {
+        $days_ago = strtotime(date('Y-m-d 00:00:00', strtotime('-' . $days_ago . ' day')));
+
+        $drop = [];
+        $client=$this->client($node);
+        $list_patitions = $client->partitions($table_name, 20000);
+
+        foreach ($list_patitions as $partion_id => $partition) {
+            if (stripos($partition['engine'], 'mergetree') === false) {
+                continue;
+            }
+
+            $max_date = strtotime($partition['max_date']);
+
+            if ($max_date < $days_ago) {
+                $drop[$partition['partition']] = $partition['partition'];
+            }
+        }
+        $c=0;
+        ksort($drop);
+        foreach ($drop as $partition_id) {
+            $c++;
+            if ($c>$count_partitons_per_one) break;
+            $sql="ALTER TABLE $table_name DROP PARTITION $partition_id";
+
+            echo "\nsudo touch '/opt/clickhouse/flags/force_drop_table' && sudo chmod 666 '/opt/clickhouse/flags/force_drop_table' && clickhouse-client --database=ads --password=w8z6QtXEzA0ohgdw --user=model --query=\"ALTER TABLE block_views_sharded DROP PARTITION $partition_id\" \n\n";
+//            $this->showDebug("client($node)\t$sql",true);
+//            $client->write($sql);
+            //
+
+        }
+//        foreach ($drop as $partition_id) {
+//            $this->dropPartition($table_name, $partition_id);
+//        }
+
+        return $drop;
+    }
+
+
+    public function sendQuery(\ClickHouseDB\Cluster $cluster,$sql)
+    {
+        $node_hosts=$cluster->getClusterNodes('ads');
+        foreach ($node_hosts as $node) {
+            $this->client($node)->ping();
+            $this->showDebug("client($node)->ping() OK!",true);
+        }
+        foreach ($node_hosts as $node) {
+            $st=$this->client($node)->select($sql);
+            echo ">$node>\n";
+            echo json_encode($st->rows());
+            echo "\n\n";
+
+        }
+    }
     public function sendMigration(Cluster\Migration $migration,$showDebug=false)
     {
         $node_hosts=$this->getClusterNodes($migration->getClusterName());

@@ -24,9 +24,22 @@ class MigrationsConsole
      * @param $file string имя файла
      * @return bool
      */
-    public function execoneCommand($file)
+    public function queryCommand($sql,$cluster)
     {
+
+        $this->initConfigCH();
+        $Commander=new MigrationsClickhouse\Commander($this->config_ch_list);
+
+        $Commander->queryAction($sql,$cluster);
         return true;
+    }
+
+    public function dropCommand($cluster,$database,$table)
+    {
+        //$cluster,$db,$table,$date
+        $this->initConfigCH();
+        $Commander=new MigrationsClickhouse\Commander($this->config_ch_list);
+        $Commander->DropAction($cluster,$database,$table);
     }
 
     /**
