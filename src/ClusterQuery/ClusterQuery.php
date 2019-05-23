@@ -18,6 +18,11 @@ class Query
      */
     private $timeout=0;
 
+    /**
+     * @var bool
+     */
+    private $forceContinue=false;
+
     public function __construct($cluster_name)
     {
         $this->cluster_name=$cluster_name;
@@ -64,6 +69,22 @@ class Query
     public function getNodesError()
     {
 
+    }
+
+    /**
+     * @return bool
+     */
+    public function isForceContinue()
+    {
+        return $this->forceContinue;
+    }
+
+    /**
+     * @param $flag
+     */
+    public function forceContinue($flag)
+    {
+        $this->forceContinue=$flag;
     }
 }
 

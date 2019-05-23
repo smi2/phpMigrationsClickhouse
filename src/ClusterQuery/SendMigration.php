@@ -90,6 +90,11 @@ class SendMigrationCluster extends Cluster
 
         $sql_down=$migration->getSqlDowngrade();
         $sql_up=$migration->getSqlUpdate();
+
+        $isForceContinue=$migration->isForceContinue();
+
+
+
         $error=[];
         // Пропингуем все хосты
         foreach ($node_hosts as $node) {
@@ -108,6 +113,9 @@ class SendMigrationCluster extends Cluster
                 $error[] = "Can`t connect or ping ip/node : " . $node;
                 return false;
             }
+        }
+        if ($isForceContinue) {
+            $this->showDebug("WARNING: isForceContinue!",$showDebug);
         }
 
 
@@ -134,13 +142,13 @@ class SendMigrationCluster extends Cluster
                     $this->showDebug("client($node)->Host $node result error:".$E->getMessage(),$showDebug);
                     $error[] = "Host $node result error : " . $E->getMessage();
                 }
-                if ($need_undo)
+                if ($need_undo && !$isForceContinue)
                 {
                     $undo_ip[$node]=1;
                     break;
                 }
             }
-            if ($need_undo)
+            if ($need_undo && !$isForceContinue)
             {
                 $undo_ip[$node]=1;
                 break;
@@ -149,6 +157,9 @@ class SendMigrationCluster extends Cluster
 
         if (!$need_undo)
         {
+            return true;
+        }
+        if ($isForceContinue) {
             return true;
         }
 
