@@ -102,6 +102,7 @@ class SendMigrationCluster extends Cluster
                 if ($migration->getTimeout())
                 {
 
+                    $this->client($node)->settings()->set('replication_alter_columns_timeout',$migration->getTimeout());
                     $this->client($node)->settings()->max_execution_time($migration->getTimeout());
                 }
                 $this->client($node)->ping();
