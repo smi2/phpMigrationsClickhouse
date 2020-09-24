@@ -16,7 +16,7 @@ class GitRepo
     }
     public function reopen()
     {
-        $this->openRepo();
+        // $this->openRepo();
         $this->scanDir();
     }
     private function dirMigrations()

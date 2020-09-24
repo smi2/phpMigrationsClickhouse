@@ -163,16 +163,20 @@ class Commander
         \Shell::msg("Connect to CH cluster....",[\Shell::bold,\Shell::info]);
         $this->getChCluster()->getClusterList();
 
-        \Shell::msg("Open & pull git repo....",[\Shell::bold,\Shell::info]);
-        $list_files=$this->getRepo()->getList();
+         \Shell::msg("Open & pull git repo....",[\Shell::bold,\Shell::info]);
+         $list_files=$this->getRepo()->getList();
 
         $menu=$this->makeMenu('Select migration');
 
         $menu->addItem("Update repository", function (CliMenu $menu) {
             self::event_UpdateRepo();
         });
+        $c=0;
+        $max_size=30;
         foreach ($list_files as $file)
         {
+              if ($c>$max_size) break;
+              $c++;
               $menu->addItem($file->getFilename()."       ".date('Y-m-d H:i:s',$file->getMTime()).' ', function (CliMenu $menu) use ($file) {
                   self::event_ExecMigration($file,$menu);
 
