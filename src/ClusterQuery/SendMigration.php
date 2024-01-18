@@ -106,7 +106,7 @@ class SendMigrationCluster extends Cluster
                     $this->client($node)->settings()->max_execution_time($migration->getTimeout());
                 }
                 $this->client($node)->ping();
-                $this->showDebug("client($node)->ping() OK!",$showDebug);
+                $this->showDebug("client($node)->ping() OK! .",$showDebug);
 
             } catch (QueryException $E) {
 
@@ -127,7 +127,8 @@ class SendMigrationCluster extends Cluster
         {
             foreach ($node_hosts as $node) {
                 try {
-                    $this->showDebug("client($node)->write(".substr($s_u,0,45).")....",$showDebug);
+                    $this->showDebug("<light_cyan>$node</light_cyan> : ".substr($s_u,0,115)."  ....",$showDebug);
+
 
                     if ($this->client($node)->write($s_u)->isError()) {
                         $need_undo = true;
@@ -137,10 +138,15 @@ class SendMigrationCluster extends Cluster
                     else
                     {
                         // OK
+                        if ($migration->isUseOneNode())
+                        {
+                            break;
+                        }
                     }
                 } catch (QueryException $E) {
                     $need_undo = true;
                     $this->showDebug("client($node)->Host $node result error:".$E->getMessage(),$showDebug);
+                    if ($migration->isUseOneNode()) continue;
                     $error[] = "Host $node result error : " . $E->getMessage();
                 }
                 if ($need_undo && !$isForceContinue)

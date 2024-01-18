@@ -90,6 +90,7 @@ class Query
 
 class Migration extends Query
 {
+    private $_useOneNode=false;
     private $_sql_up=[];
     private $_sql_down=[];
     private $_split_chars=';;';
@@ -103,7 +104,15 @@ class Migration extends Query
         }
         return $sql;
     }
+    public function useOneNode($flag)
+    {
+        $this->_useOneNode = $flag;
+    }
 
+    public function isUseOneNode()
+    {
+        return $this->_useOneNode;
+    }
     /**
      * @param $split_chars
      * @return $this

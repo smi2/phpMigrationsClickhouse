@@ -4,3 +4,4 @@ composer-test.lock
 .idea
 .DS_STORE
 config.php
+vendor/
