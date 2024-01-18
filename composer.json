@@ -1,6 +1,12 @@
 {
     "require": {
         "php-school/cli-menu": "^1.0",
-        "coyl/git": "^0.1.6"
+        "coyl/git": "^0.1.6",
+        "smi2/phpclickhouse": "^1.5.1",
+        "isublimity/shell": "^1.22",
+        "ext-json": "*",
+        "ext-curl": "*",
+        "eleirbag89/telegrambotphp": "^1.4",
+        "ext-mbstring": "*"
     }
 }
