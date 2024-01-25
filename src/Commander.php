@@ -75,7 +75,7 @@ class Commander
     }
     /**
      * @return \ClickHouseDB\Cluster
-     * @throws Exception
+     * @throws \Exception
      */
     protected function getChCluster()
     {
@@ -87,8 +87,11 @@ class Commander
             $this->chcluster[$id]->setScanTimeOut(15);
             $this->chcluster[$id]->rescan();
             if (!$this->chcluster[$id]->isReplicasIsOk()) {
-                throw new Exception('Replica state is bad , error= ' . json_encode($this->chcluster[$id]->getError()));
-             }
+                \Shell::msg(" CH cluster, BAD",[\Shell::bold,\Shell::bg_light_red]);
+                throw new \Exception('Replica state is bad , error= ' . json_encode($this->chcluster[$id]->getError()));
+             } else {
+                \Shell::msg(" CH cluster, OK",[\Shell::bold,\Shell::bg_light_blue]);
+            }
         }
         return $this->chcluster[$id];
     }
